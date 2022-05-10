@@ -317,7 +317,7 @@ input[type='radio'] {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 75rem;
   margin-inline: auto;
   margin-top: 7rem;
   margin-bottom: 2rem;

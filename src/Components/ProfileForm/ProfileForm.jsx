@@ -30,7 +30,7 @@ const ProfileForm = () => {
           <div class='form-group'>
             <input type='text' placeholder='Location' name='location' />
             <small class='form-text'>
-              City & state suggested (eg. Boston, MA)
+              City & state suggested (eg. Amravati, Maharashtra)
             </small>
           </div>
           <div class='form-group'>
