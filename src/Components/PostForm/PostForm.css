@@ -1,0 +1,21 @@
+.form-controls {
+  padding-inline: 2rem;
+}
+
+input[type='file'] {
+  display: none;
+}
+
+.photo {
+  cursor: pointer;
+}
+
+.preview {
+  width: 50%;
+  height: auto;
+  margin-inline: auto;
+}
+
+.preview > img {
+  border-radius: 7px;
+}

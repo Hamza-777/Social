@@ -1,0 +1,74 @@
+.myprofile {
+  width: 100%;
+  border: 2px solid #000;
+  border-radius: 7px;
+  position: relative;
+  padding: 2rem;
+}
+
+.delete-profile,
+.edit-profile {
+  position: absolute;
+  top: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+.delete-profile {
+  left: 1rem;
+  color: var(--red-color);
+}
+
+.edit-profile {
+  right: 1rem;
+}
+
+.myprofile-pic .profile-img {
+  width: 8rem;
+  height: 8rem;
+}
+
+.myprofile-socials {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-block: 1rem;
+}
+
+.myprofile-dates {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.myprofile-about .large {
+  text-align: center;
+}
+
+.myprofile-about .lead {
+  text-align: justify;
+  text-align-last: center;
+}
