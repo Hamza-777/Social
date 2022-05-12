@@ -15,10 +15,10 @@ const PostForm = () => {
   };
 
   return (
-    <div class='create-post'>
-      <div class='post-form'>
-        <form class='form' onSubmit={submitHandler}>
-          <div class='form-group'>
+    <div className='create-post'>
+      <div className='post-form'>
+        <form className='form' onSubmit={submitHandler}>
+          <div className='form-group'>
             <textarea
               name='text'
               cols='30'
@@ -35,7 +35,7 @@ const PostForm = () => {
             <div></div>
           )}
           <div className='form-group form-controls flex-center justify-between'>
-            <div class='photo'>
+            <div className='photo'>
               <label htmlFor='file'>
                 <GrGallery className='icon' />
               </label>
@@ -46,7 +46,7 @@ const PostForm = () => {
                 onChange={handleChange}
               />
             </div>
-            <button class='btn btn-outline' value='Post'>
+            <button className='btn btn-outline' value='Post'>
               Post
             </button>
           </div>

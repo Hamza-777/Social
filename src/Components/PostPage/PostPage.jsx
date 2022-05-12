@@ -5,14 +5,14 @@ import Post from '../Post/Post';
 const PostPage = () => {
   return (
     <section
-      class='container'
+      className='container'
       style={{ border: '2px solid', borderRadius: '7px' }}
     >
       <Post />
-      <div class='create-post'>
-        <div class='post-form'>
-          <form class='form my-1'>
-            <div class='form-group'>
+      <div className='create-post'>
+        <div className='post-form'>
+          <form className='form my-1'>
+            <div className='form-group'>
               <textarea
                 name='text'
                 cols='30'
@@ -21,11 +21,11 @@ const PostPage = () => {
                 required
               ></textarea>
             </div>
-            <button class='btn btn-outline'>Comment</button>
+            <button className='btn btn-outline'>Comment</button>
           </form>
         </div>
       </div>
-      <div class='comments'>
+      <div className='comments'>
         <Post comment={true} />
       </div>
     </section>
