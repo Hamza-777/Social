@@ -1,29 +1,49 @@
 import React, { useState } from 'react';
 import { GrGallery } from 'react-icons/gr';
+import { useSelector, useDispatch } from 'react-redux';
+import { createAPost } from '../../Reducers/postReducer';
 import './PostForm.css';
 
 const PostForm = () => {
   const [image, setImage] = useState('');
+  const [content, setContent] = useState('');
+
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setImage();
+    dispatch(
+      createAPost({
+        content,
+        image,
+        userAvatar: user.avatar,
+      })
+    );
+    setImage('');
+    setContent('');
   };
 
-  const handleChange = (e) => {
+  const handleContent = (e) => {
+    setContent(e.target.value);
+  };
+
+  const handleImage = (e) => {
     setImage(URL.createObjectURL(e.target.files[0]));
   };
 
   return (
-    <div class='create-post'>
-      <div class='post-form'>
-        <form class='form' onSubmit={submitHandler}>
-          <div class='form-group'>
+    <div className='create-post'>
+      <div className='post-form'>
+        <form className='form' onSubmit={submitHandler}>
+          <div className='form-group'>
             <textarea
-              name='text'
+              name='content'
               cols='30'
               rows='5'
               placeholder='Create a post'
+              value={content}
+              onChange={handleContent}
               required
             ></textarea>
           </div>
@@ -32,21 +52,22 @@ const PostForm = () => {
               <img src={image} alt='preview' />
             </div>
           ) : (
-            <div></div>
+            ''
           )}
           <div className='form-group form-controls flex-center justify-between'>
-            <div class='photo'>
-              <label htmlFor='file'>
+            <div className='photo'>
+              <label htmlFor='img'>
                 <GrGallery className='icon' />
               </label>
               <input
                 type='file'
-                id='file'
-                name='file'
-                onChange={handleChange}
+                id='img'
+                name='img'
+                accept='image/*'
+                onChange={handleImage}
               />
             </div>
-            <button class='btn btn-outline' value='Post'>
+            <button className='btn btn-outline' value='Post'>
               Post
             </button>
           </div>

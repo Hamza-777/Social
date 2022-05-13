@@ -1,18 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './PostPage.css';
 import Post from '../Post/Post';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAPost } from '../../Reducers/postReducer';
+import Spinner from '../Spinner/Spinner';
 
 const PostPage = () => {
+  const { postId } = useParams();
+  const dispatch = useDispatch();
+  const { post, loading } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    dispatch(getAPost(postId));
+  }, [dispatch, postId]);
+
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <section
-      class='container'
+      className='container'
       style={{ border: '2px solid', borderRadius: '7px' }}
     >
-      <Post />
-      <div class='create-post'>
-        <div class='post-form'>
-          <form class='form my-1'>
-            <div class='form-group'>
+      {post && <Post post={post} />}
+      <div className='create-post'>
+        <div className='post-form'>
+          <form className='form my-1'>
+            <div className='form-group'>
               <textarea
                 name='text'
                 cols='30'
@@ -21,13 +37,11 @@ const PostPage = () => {
                 required
               ></textarea>
             </div>
-            <button class='btn btn-outline'>Comment</button>
+            <button className='btn btn-outline'>Comment</button>
           </form>
         </div>
       </div>
-      <div class='comments'>
-        <Post comment={true} />
-      </div>
+      <div className='comments'></div>
     </section>
   );
 };

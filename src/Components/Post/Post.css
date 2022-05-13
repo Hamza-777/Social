@@ -5,9 +5,7 @@
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1rem;
   margin: 2rem 0;
   border: 2px solid;
@@ -15,16 +13,8 @@
   padding: 1rem;
 }
 
-.posts-item-left {
-  -webkit-box-flex: 5%;
-  -ms-flex: 5%;
-  flex: 5%;
-}
-
-.posts-item-right {
-  -webkit-box-flex: 95%;
-  -ms-flex: 95%;
-  flex: 95%;
+.main-content {
+  flex: 1;
 }
 
 .posts-item .profile-img {
