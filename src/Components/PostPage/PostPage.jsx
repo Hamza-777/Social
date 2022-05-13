@@ -4,15 +4,20 @@ import Post from '../Post/Post';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAPost } from '../../Reducers/postReducer';
+import Spinner from '../Spinner/Spinner';
 
 const PostPage = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
-  const { post } = useSelector((state) => state.post);
+  const { post, loading } = useSelector((state) => state.post);
 
   useEffect(() => {
     dispatch(getAPost(postId));
   }, [dispatch, postId]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <section

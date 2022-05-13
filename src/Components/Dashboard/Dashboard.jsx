@@ -4,14 +4,19 @@ import Post from '../Post/Post';
 import PostForm from '../PostForm/PostForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPosts } from '../../Reducers/postReducer';
+import Spinner from '../Spinner/Spinner';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { posts } = useSelector((state) => state.post);
+  const { posts, loading } = useSelector((state) => state.post);
 
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <section className='container'>
