@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Dashboard.css';
 import Post from '../Post/Post';
 import PostForm from '../PostForm/PostForm';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllPosts } from '../../Reducers/postReducer';
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const { posts } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, [dispatch]);
+
   return (
     <section className='container'>
       <PostForm />
       <div className='posts'>
-        <Post />
-        <Post />
+        {posts && posts.length > 0 ? (
+          posts.map((post) => <Post key={post._id} post={post} />)
+        ) : (
+          <p className='large'>No posts to show</p>
+        )}
       </div>
     </section>
   );

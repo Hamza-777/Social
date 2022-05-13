@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getAuth } from '../Misc/localStorage';
+import { getAuth, getUser } from '../Misc/localStorage';
 import { sendSignupReq, logoutUser, sendLoginReq } from '../Misc/requests';
 
 const initialState = {
   userLoggedIn: getAuth() ? true : false,
   token: getAuth(),
+  user: getUser(),
   loading: false,
 };
 
@@ -51,12 +52,14 @@ export const authSlice = createSlice({
       .addCase(signup.fulfilled, (state, action) => {
         state.loading = false;
         state.userLoggedIn = true;
-        state.token = action.payload;
+        state.token = action.payload[0];
+        state.user = action.payload[1];
       })
       .addCase(signup.rejected, (state) => {
         state.loading = false;
         state.userLoggedIn = false;
         state.token = null;
+        state.user = null;
       })
       .addCase(login.pending, (state) => {
         state.loading = true;
@@ -64,17 +67,20 @@ export const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.userLoggedIn = true;
-        state.token = action.payload;
+        state.token = action.payload[0];
+        state.user = action.payload[1];
       })
       .addCase(login.rejected, (state) => {
         state.loading = false;
         state.userLoggedIn = false;
         state.token = null;
+        state.user = null;
       })
       .addCase(logout.fulfilled, (state) => {
         state.loading = false;
         state.userLoggedIn = false;
         state.token = null;
+        state.user = null;
       });
   },
 });

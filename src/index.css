@@ -47,7 +47,6 @@
 html {
   font-size: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: 134.8px;
 }
 
 body {
@@ -84,6 +83,10 @@ a {
 input[type='checkbox'],
 input[type='radio'] {
   cursor: pointer;
+}
+
+textarea {
+  resize: none;
 }
 
 /* Normal Headings */

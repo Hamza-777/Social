@@ -15,7 +15,9 @@ const sendLoginReq = async (body) => {
     setAuth(response.data.encodedToken);
     setUser(response.data.foundUser);
     successPopup('Logged In successfully!', getTheme());
-    return response.data.encodedToken;
+    return response.data.encodedToken === undefined
+      ? null
+      : [response.data.encodedToken, response.data.foundUser];
   } catch (err) {
     err.response.status === 401
       ? errorPopup('Authorization denied! Wrong credentials.', getTheme())
@@ -31,7 +33,7 @@ const sendSignupReq = async (body) => {
     successPopup('Signed Up successfully!', getTheme());
     return response.data.encodedToken === undefined
       ? null
-      : response.data.encodedToken;
+      : [response.data.encodedToken, response.data.createdUser];
   } catch (err) {
     if (err.response.status === 422) {
       errorPopup('User already exists!', getTheme());
@@ -44,51 +46,58 @@ const logoutUser = () => {
   removeUser();
 };
 
-const addVideoToWatchLater = async (body) => {
+const createPost = async (body) => {
   const config = {
     headers: {
       authorization: getAuth(),
     },
   };
   try {
-    const response = await axios.post('/api/user/watchlater', body, config);
-    successPopup('Video added to watchlater!', getTheme());
-    return response.data.watchlater;
+    const response = await axios.post('/api/posts', { postData: body }, config);
+    successPopup('Post Created!', getTheme());
+    console.log(response.data.posts);
+    return response.data.posts.reverse();
   } catch (err) {
-    if (err.response.status === 404) {
-      errorPopup('No such user exists!', getTheme());
-    } else {
-      errorPopup('video already exists in watchlater!', getTheme());
-    }
+    console.log(err);
+    errorPopup('No such user exists!', getTheme());
   }
 };
 
-const removeFromWatchLater = async (id) => {
+const deletePost = async (id) => {
   const config = {
     headers: {
       authorization: getAuth(),
     },
   };
   try {
-    const response = await axios.delete(`/api/user/watchlater/${id}`, config);
-    successPopup('Video removed from watchlater!', getTheme());
-    return response.data.watchlater;
+    const response = await axios.delete(`/api/posts/${id}`, config);
+    successPopup('Post Deleted', getTheme());
+    return response.data.posts.reverse();
   } catch (err) {
     errorPopup('No such user exists!', getTheme());
   }
 };
 
-const getWatchLaters = async () => {
+const getPost = async (id) => {
   const config = {
     headers: {
       authorization: getAuth(),
     },
   };
   try {
-    const response = await axios.get(`/api/user/watchlater`, config);
-    return response.data.watchlater;
+    const response = await axios.get(`/api/posts/${id}`, config);
+    return response.data.post;
   } catch (err) {
-    return;
+    errorPopup('No such user exists!', getTheme());
+  }
+};
+
+const getPosts = async () => {
+  try {
+    const response = await axios.get(`/api/posts`);
+    return response.data.posts.reverse();
+  } catch (err) {
+    errorPopup('No such user exists!', getTheme());
   }
 };
 
@@ -96,7 +105,8 @@ export {
   sendLoginReq,
   sendSignupReq,
   logoutUser,
-  addVideoToWatchLater,
-  removeFromWatchLater,
-  getWatchLaters,
+  createPost,
+  deletePost,
+  getPost,
+  getPosts,
 };

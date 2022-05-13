@@ -6,11 +6,11 @@ import './Login.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: '',
   });
 
-  const { email, password } = formData;
+  const { username, password } = formData;
 
   const dispatch = useDispatch();
   const { userLoggedIn } = useSelector((state) => state.auth);
@@ -23,7 +23,7 @@ const Login = () => {
   const logInUser = (e) => {
     e.preventDefault();
     const userData = {
-      email,
+      username,
       password,
     };
     dispatch(login(userData));
@@ -32,12 +32,12 @@ const Login = () => {
   const loginAsGuest = () => {
     setFormData({
       ...formData,
-      email: 'guest@gmail.com',
+      username: '@guest',
       password: 'guest777',
     });
     dispatch(
       login({
-        email: 'guest@gmail.com',
+        username: '@guest',
         password: 'guest777',
       })
     );
@@ -55,10 +55,10 @@ const Login = () => {
       <form className='form' onSubmit={logInUser}>
         <div className='form-group'>
           <input
-            type='email'
-            name='email'
-            placeholder='Your Email'
-            value={email}
+            type='text'
+            name='username'
+            placeholder='Your Username'
+            value={username}
             onChange={handleChange}
             required
           />

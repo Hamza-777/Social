@@ -30,6 +30,9 @@ const Signup = () => {
       setFormData({ ...formData, password: '', confirmPassword: '' });
     } else {
       const userData = {
+        username: '@' + email.split('@')[0],
+        avatar:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt-F5GQg8qB2fWquF1ltQvAT2Z8Dv5pJLb9w&usqp=CAU',
         name,
         email,
         password,

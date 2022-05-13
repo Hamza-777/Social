@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './PostPage.css';
 import Post from '../Post/Post';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAPost } from '../../Reducers/postReducer';
 
 const PostPage = () => {
+  const { postId } = useParams();
+  const dispatch = useDispatch();
+  const { post } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    dispatch(getAPost(postId));
+  }, [dispatch, postId]);
+
   return (
     <section
       className='container'
       style={{ border: '2px solid', borderRadius: '7px' }}
     >
-      <Post />
+      {post && <Post post={post} />}
       <div className='create-post'>
         <div className='post-form'>
           <form className='form my-1'>
@@ -25,9 +36,7 @@ const PostPage = () => {
           </form>
         </div>
       </div>
-      <div className='comments'>
-        <Post comment={true} />
-      </div>
+      <div className='comments'></div>
     </section>
   );
 };
