@@ -81,6 +81,10 @@
   margin-top: 1rem;
 }
 
+.edit-delete {
+  gap: 2rem;
+}
+
 .likes,
 .comment-count {
   gap: 0.5rem;

@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllUsers } from './Reducers/userReducer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Starred from './Components/Starred/Starred';
 
 function App() {
   const dispatch = useDispatch();
@@ -56,6 +57,14 @@ function App() {
           element={
             <PrivateRoute>
               <ProfileForm />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/starred'
+          element={
+            <PrivateRoute>
+              <Starred />
             </PrivateRoute>
           }
         />

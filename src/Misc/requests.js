@@ -65,6 +65,61 @@ const createPost = async (body) => {
   }
 };
 
+const editPost = async (body, id) => {
+  const config = {
+    headers: {
+      authorization: getAuth(),
+    },
+  };
+  try {
+    const response = await axios.post(
+      `/api/posts/edit/${id}`,
+      { postData: body },
+      config
+    );
+    successPopup('Post Created!', getTheme());
+    return [response.data.posts.reverse(), id];
+  } catch (err) {
+    err.response.status === 400
+      ? errorPopup("You don't own this post!", getTheme())
+      : errorPopup('No such user exists!', getTheme());
+  }
+};
+
+const likePost = async (id) => {
+  const config = {
+    headers: {
+      authorization: getAuth(),
+    },
+  };
+  try {
+    const response = await axios.post(`api/posts/like/${id}`, {}, config);
+    successPopup('Post Liked!', getTheme());
+    return response.data.posts.reverse();
+  } catch (err) {
+    err.response.status === 400
+      ? errorPopup("You've already liked this post!", getTheme())
+      : errorPopup('No such user exists!', getTheme());
+  }
+};
+
+const dislikePost = async (id) => {
+  const config = {
+    headers: {
+      authorization: getAuth(),
+    },
+  };
+  try {
+    const response = await axios.post(`api/posts/dislike/${id}`, {}, config);
+    successPopup('Post Disliked!', getTheme());
+    return response.data.posts.reverse();
+  } catch (err) {
+    err.response.status === 400
+      ? errorPopup('Post not liked yet!', getTheme())
+      : errorPopup('No such user exists!', getTheme());
+  }
+};
+
 const deletePost = async (id) => {
   const config = {
     headers: {
@@ -115,6 +170,58 @@ const editUser = async (body) => {
     );
     successPopup('Profile Updated!', getTheme());
     return response.data.user;
+  } catch (err) {
+    errorPopup('No such user exists!', getTheme());
+  }
+};
+
+const starPost = async (id) => {
+  const config = {
+    headers: {
+      authorization: getAuth(),
+    },
+  };
+  try {
+    const response = await axios.post(`/api/users/bookmark/${id}`, {}, config);
+    successPopup('Added to starred posts!', getTheme());
+    return response.data.bookmarks;
+  } catch (err) {
+    err.response.status === 400
+      ? errorPopup("You've already starred this post!", getTheme())
+      : errorPopup('No such user exists!', getTheme());
+  }
+};
+
+const unstarPost = async (id) => {
+  const config = {
+    headers: {
+      authorization: getAuth(),
+    },
+  };
+  try {
+    const response = await axios.post(
+      `/api/users/remove-bookmark/${id}`,
+      {},
+      config
+    );
+    successPopup('Removed from starred posts!', getTheme());
+    return response.data.bookmarks;
+  } catch (err) {
+    err.response.status === 400
+      ? errorPopup('Post not starred yet!', getTheme())
+      : errorPopup('No such user exists!', getTheme());
+  }
+};
+
+const getStarred = async () => {
+  const config = {
+    headers: {
+      authorization: getAuth(),
+    },
+  };
+  try {
+    const response = await axios.get(`/api/users/bookmark`, config);
+    return response.data.bookmarks;
   } catch (err) {
     errorPopup('No such user exists!', getTheme());
   }
@@ -176,10 +283,16 @@ export {
   sendSignupReq,
   logoutUser,
   createPost,
+  editPost,
+  likePost,
+  dislikePost,
   deletePost,
   getPost,
   getPosts,
   editUser,
+  starPost,
+  unstarPost,
+  getStarred,
   followUser,
   unfollowUser,
   getUser,

@@ -3,6 +3,9 @@ import {
   editUser,
   followUser,
   unfollowUser,
+  starPost,
+  unstarPost,
+  getStarred,
   getUser,
   getUsers,
 } from '../Misc/requests';
@@ -10,6 +13,7 @@ import {
 const initialState = {
   user: null,
   users: [],
+  starred: [],
   loading: false,
 };
 
@@ -18,6 +22,42 @@ export const editAUser = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       return await editUser(user);
+    } catch (err) {
+      const message =
+        err?.response?.data?.message || err.message || err.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const starAPost = createAsyncThunk('user/star', async (id, thunkAPI) => {
+  try {
+    return await starPost(id);
+  } catch (err) {
+    const message =
+      err?.response?.data?.message || err.message || err.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+export const unstarAPost = createAsyncThunk(
+  'user/unstar',
+  async (id, thunkAPI) => {
+    try {
+      return await unstarPost(id);
+    } catch (err) {
+      const message =
+        err?.response?.data?.message || err.message || err.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const getAllStarred = createAsyncThunk(
+  'user/getStarred',
+  async (thunkAPI) => {
+    try {
+      return await getStarred();
     } catch (err) {
       const message =
         err?.response?.data?.message || err.message || err.toString();
@@ -96,6 +136,36 @@ export const userSlice = createSlice({
         );
       })
       .addCase(editAUser.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(starAPost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(starAPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.starred = action.payload;
+      })
+      .addCase(starAPost.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(unstarAPost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(unstarAPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.starred = action.payload;
+      })
+      .addCase(unstarAPost.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(getAllStarred.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getAllStarred.fulfilled, (state, action) => {
+        state.loading = false;
+        state.starred = action.payload;
+      })
+      .addCase(getAllStarred.rejected, (state) => {
         state.loading = false;
       })
       .addCase(followAUser.pending, (state) => {

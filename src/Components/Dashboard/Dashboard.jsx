@@ -5,6 +5,7 @@ import PostForm from '../PostForm/PostForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPosts } from '../../Reducers/postReducer';
 import Spinner from '../Spinner/Spinner';
+import { getAllStarred } from '../../Reducers/userReducer';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getAllPosts());
+    dispatch(getAllStarred());
   }, [dispatch]);
 
   if (loading) {

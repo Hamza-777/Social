@@ -68,9 +68,7 @@ const PostForm = () => {
                 onChange={handleImage}
               />
             </div>
-            <button className='btn btn-outline' value='Post'>
-              Post
-            </button>
+            <button className='btn btn-outline'>Post</button>
           </div>
         </form>
       </div>
