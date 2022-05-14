@@ -9,7 +9,7 @@ const PostForm = () => {
   const [content, setContent] = useState('');
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { currentUser } = useSelector((state) => state.auth);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -17,7 +17,8 @@ const PostForm = () => {
       createAPost({
         content,
         image,
-        userAvatar: user.avatar,
+        userAvatar: currentUser.avatar,
+        byUser: currentUser._id,
       })
     );
     setImage('');

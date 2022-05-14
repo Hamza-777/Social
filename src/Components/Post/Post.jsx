@@ -17,10 +17,11 @@ const Post = ({
     image,
     likes: { likeCount },
     content,
+    byUser,
   },
 }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { currentUser } = useSelector((state) => state.auth);
 
   const deletePost = (e) => {
     dispatch(deleteAPost(_id));
@@ -28,7 +29,7 @@ const Post = ({
 
   return (
     <div className='posts-item'>
-      <Link to='/profile'>
+      <Link to={`/profile/${byUser}`}>
         <div className='profile-img'>
           <img src={userAvatar} alt={username} className='round-img' />
         </div>
@@ -63,7 +64,7 @@ const Post = ({
               <BsStar className='icon' />
             </div>
           </div>
-          {user.username === username && (
+          {currentUser.username === username && (
             <FaTrashAlt className='icon delete' onClick={deletePost} />
           )}
         </div>

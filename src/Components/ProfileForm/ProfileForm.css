@@ -1,0 +1,28 @@
+.avatar-group {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+  margin-inline: auto;
+  border-radius: 50%;
+}
+
+.avatar-setter {
+  border-radius: 50%;
+}
+
+.for-avatar {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  border-radius: 50%;
+  transition: all 200ms ease-in-out;
+}
+
+.for-avatar > .icon {
+  color: var(--light-color);
+}
+
+.avatar-group:hover .for-avatar {
+  opacity: 1;
+  background-color: var(--light-black-2);
+}

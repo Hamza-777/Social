@@ -16,7 +16,8 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    username: 'adarshbalika',
+    username: '@adarshbalika',
+    byUser: '1',
     userAvatar:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt-F5GQg8qB2fWquF1ltQvAT2Z8Dv5pJLb9w&usqp=CAU',
     createdAt: formatDate(),
@@ -31,7 +32,8 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    username: 'shubhamsoni',
+    username: '@shubhamsoni',
+    byUser: '2',
     userAvatar:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt-F5GQg8qB2fWquF1ltQvAT2Z8Dv5pJLb9w&usqp=CAU',
     createdAt: formatDate(),

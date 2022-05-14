@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
 import Dashboard from './Components/Dashboard/Dashboard';
@@ -9,10 +10,19 @@ import ProfileForm from './Components/ProfileForm/ProfileForm';
 import Sidebar from './Components/Sidebar/Sidebar';
 import Search from './Components/Search/Search';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllUsers } from './Reducers/userReducer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch, user]);
+
   return (
     <Router>
       <Navbar />
@@ -34,7 +44,7 @@ function App() {
           }
         />
         <Route
-          path='/profile'
+          path='/profile/:userId'
           element={
             <PrivateRoute>
               <Profile />
@@ -42,7 +52,7 @@ function App() {
           }
         />
         <Route
-          path='/edit-profile'
+          path='/edit-profile/:userId'
           element={
             <PrivateRoute>
               <ProfileForm />
