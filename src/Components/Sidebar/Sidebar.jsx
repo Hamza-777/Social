@@ -2,11 +2,14 @@ import React from 'react';
 import './Sidebar.css';
 import { MdOutlineSpaceDashboard } from 'react-icons/md';
 import { FaRegUserCircle } from 'react-icons/fa';
-import { BsSearch, BsChatLeftText } from 'react-icons/bs';
+import { BsSearch, BsChatLeftText, BsStar } from 'react-icons/bs';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
   const location = useLocation().pathname;
+  const { currentUser } = useSelector((state) => state.auth);
+
   return (
     location !== '/login' &&
     location !== '/signup' && (
@@ -14,8 +17,11 @@ const Sidebar = () => {
         <Link to='/'>
           <MdOutlineSpaceDashboard className='icon' />
         </Link>
-        <Link to='/profile'>
+        <Link to={`/profile/${currentUser?._id}`}>
           <FaRegUserCircle className='icon' />
+        </Link>
+        <Link to={`/starred`}>
+          <BsStar className='icon' />
         </Link>
         <Link to='/search'>
           <BsSearch className='icon' />

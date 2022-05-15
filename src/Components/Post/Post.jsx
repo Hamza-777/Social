@@ -3,10 +3,15 @@ import { Link } from 'react-router-dom';
 import './Post.css';
 import { FiHeart } from 'react-icons/fi';
 import { BiComment } from 'react-icons/bi';
-import { FaTrashAlt } from 'react-icons/fa';
-import { BsStar } from 'react-icons/bs';
+import { FaTrashAlt, FaHeart } from 'react-icons/fa';
+import { BsStar, BsStarFill } from 'react-icons/bs';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteAPost } from '../../Reducers/postReducer';
+import {
+  likeAPost,
+  dislikeAPost,
+  deleteAPost,
+} from '../../Reducers/postReducer';
+import { starAPost, unstarAPost } from '../../Reducers/userReducer';
 
 const Post = ({
   post: {
@@ -15,12 +20,30 @@ const Post = ({
     username,
     createdAt,
     image,
-    likes: { likeCount },
+    likes: { likeCount, likedBy },
     content,
+    byUser,
   },
 }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { currentUser } = useSelector((state) => state.auth);
+  const { starred } = useSelector((state) => state.user);
+
+  const starPost = (e) => {
+    dispatch(starAPost(_id));
+  };
+
+  const unstarPost = (e) => {
+    dispatch(unstarAPost(_id));
+  };
+
+  const likePost = (e) => {
+    dispatch(likeAPost(_id));
+  };
+
+  const dislikePost = (e) => {
+    dispatch(dislikeAPost(_id));
+  };
 
   const deletePost = (e) => {
     dispatch(deleteAPost(_id));
@@ -28,7 +51,7 @@ const Post = ({
 
   return (
     <div className='posts-item'>
-      <Link to='/profile'>
+      <Link to={`/profile/${byUser}`}>
         <div className='profile-img'>
           <img src={userAvatar} alt={username} className='round-img' />
         </div>
@@ -51,7 +74,13 @@ const Post = ({
         <div className='posts-item-actions'>
           <div className='like-dislike-comment'>
             <div className='likes flex-center'>
-              <FiHeart className='icon' /> <p className='h5'>{likeCount}</p>
+              {likedBy &&
+              likedBy.some((item) => item._id === currentUser._id) ? (
+                <FaHeart className='icon' onClick={dislikePost} />
+              ) : (
+                <FiHeart className='icon' onClick={likePost} />
+              )}{' '}
+              <p className='h5'>{likeCount}</p>
             </div>
             <div className='comment-count flex-center'>
               <Link to={`/post/${_id}`}>
@@ -60,11 +89,18 @@ const Post = ({
               <p className='h5'>0</p>
             </div>
             <div className='star'>
-              <BsStar className='icon' />
+              {starred && starred.some((item) => item._id === _id) ? (
+                <BsStarFill className='icon' onClick={unstarPost} />
+              ) : (
+                <BsStar className='icon' onClick={starPost} />
+              )}
             </div>
           </div>
-          {user.username === username && (
-            <FaTrashAlt className='icon delete' onClick={deletePost} />
+
+          {currentUser.username === username && (
+            <div className='edit-delete flex-center'>
+              <FaTrashAlt className='icon delete' onClick={deletePost} />
+            </div>
           )}
         </div>
       </div>

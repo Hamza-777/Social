@@ -5,7 +5,7 @@ import { sendSignupReq, logoutUser, sendLoginReq } from '../Misc/requests';
 const initialState = {
   userLoggedIn: getAuth() ? true : false,
   token: getAuth(),
-  user: getUser(),
+  currentUser: getUser(),
   loading: false,
 };
 
@@ -53,13 +53,13 @@ export const authSlice = createSlice({
         state.loading = false;
         state.userLoggedIn = true;
         state.token = action.payload[0];
-        state.user = action.payload[1];
+        state.currentUser = action.payload[1];
       })
       .addCase(signup.rejected, (state) => {
         state.loading = false;
         state.userLoggedIn = false;
         state.token = null;
-        state.user = null;
+        state.currentUser = null;
       })
       .addCase(login.pending, (state) => {
         state.loading = true;
@@ -68,19 +68,19 @@ export const authSlice = createSlice({
         state.loading = false;
         state.userLoggedIn = true;
         state.token = action.payload[0];
-        state.user = action.payload[1];
+        state.currentUser = action.payload[1];
       })
       .addCase(login.rejected, (state) => {
         state.loading = false;
         state.userLoggedIn = false;
         state.token = null;
-        state.user = null;
+        state.currentUser = null;
       })
       .addCase(logout.fulfilled, (state) => {
         state.loading = false;
         state.userLoggedIn = false;
         state.token = null;
-        state.user = null;
+        state.currentUser = null;
       });
   },
 });

@@ -1,5 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { createPost, deletePost, getPost, getPosts } from '../Misc/requests';
+import {
+  createPost,
+  likePost,
+  dislikePost,
+  deletePost,
+  getPost,
+  getPosts,
+} from '../Misc/requests';
 
 const initialState = {
   post: null,
@@ -12,6 +19,29 @@ export const createAPost = createAsyncThunk(
   async (post, thunkAPI) => {
     try {
       return await createPost(post);
+    } catch (err) {
+      const message =
+        err?.response?.data?.message || err.message || err.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const likeAPost = createAsyncThunk('post/like', async (id, thunkAPI) => {
+  try {
+    return await likePost(id);
+  } catch (err) {
+    const message =
+      err?.response?.data?.message || err.message || err.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+export const dislikeAPost = createAsyncThunk(
+  'post/dislike',
+  async (id, thunkAPI) => {
+    try {
+      return await dislikePost(id);
     } catch (err) {
       const message =
         err?.response?.data?.message || err.message || err.toString();
@@ -74,6 +104,26 @@ export const postSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(createAPost.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(likeAPost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(likeAPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.posts = action.payload;
+      })
+      .addCase(likeAPost.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(dislikeAPost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(dislikeAPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.posts = action.payload;
+      })
+      .addCase(dislikeAPost.rejected, (state) => {
         state.loading = false;
       })
       .addCase(deleteAPost.pending, (state) => {
