@@ -1,20 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './Dashboard.css';
 import Post from '../Post/Post';
 import PostForm from '../PostForm/PostForm';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllPosts } from '../../Reducers/postReducer';
+import { useSelector } from 'react-redux';
 import Spinner from '../Spinner/Spinner';
-import { getAllStarred } from '../../Reducers/userReducer';
 
 const Dashboard = () => {
-  const dispatch = useDispatch();
   const { posts, loading } = useSelector((state) => state.post);
-
-  useEffect(() => {
-    dispatch(getAllPosts());
-    dispatch(getAllStarred());
-  }, [dispatch]);
 
   if (loading) {
     return <Spinner />;

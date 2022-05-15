@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {
   createPost,
+  editPost,
   likePost,
   dislikePost,
   deletePost,
@@ -19,6 +20,20 @@ export const createAPost = createAsyncThunk(
   async (post, thunkAPI) => {
     try {
       return await createPost(post);
+    } catch (err) {
+      const message =
+        err?.response?.data?.message || err.message || err.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const editAPost = createAsyncThunk(
+  'post/edit',
+  async (data, thunkAPI) => {
+    const { post, id } = data;
+    try {
+      return await editPost(post, id);
     } catch (err) {
       const message =
         err?.response?.data?.message || err.message || err.toString();
@@ -102,12 +117,21 @@ export const postSlice = createSlice({
       .addCase(createAPost.fulfilled, (state, action) => {
         state.loading = false;
         state.posts = action.payload;
+        state.post = null;
       })
       .addCase(createAPost.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(likeAPost.pending, (state) => {
+      .addCase(editAPost.pending, (state) => {
         state.loading = true;
+      })
+      .addCase(editAPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.posts = action.payload;
+        state.post = null;
+      })
+      .addCase(editAPost.rejected, (state) => {
+        state.loading = false;
       })
       .addCase(likeAPost.fulfilled, (state, action) => {
         state.loading = false;
@@ -115,9 +139,6 @@ export const postSlice = createSlice({
       })
       .addCase(likeAPost.rejected, (state) => {
         state.loading = false;
-      })
-      .addCase(dislikeAPost.pending, (state) => {
-        state.loading = true;
       })
       .addCase(dislikeAPost.fulfilled, (state, action) => {
         state.loading = false;

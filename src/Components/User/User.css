@@ -1,0 +1,12 @@
+.user {
+  width: 100%;
+  margin-block: 1rem;
+  border: 2px solid;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
+
+.user-left,
+.user-right {
+  gap: 1rem;
+}

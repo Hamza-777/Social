@@ -85,6 +85,11 @@
   gap: 2rem;
 }
 
+.edit-delete-comment {
+  margin-left: auto;
+  gap: 2rem;
+}
+
 .likes,
 .comment-count {
   gap: 0.5rem;

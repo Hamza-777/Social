@@ -77,8 +77,8 @@ const editPost = async (body, id) => {
       { postData: body },
       config
     );
-    successPopup('Post Created!', getTheme());
-    return [response.data.posts.reverse(), id];
+    successPopup('Post Edited!', getTheme());
+    return response.data.posts.reverse();
   } catch (err) {
     err.response.status === 400
       ? errorPopup("You don't own this post!", getTheme())
@@ -152,6 +152,88 @@ const getPost = async (id) => {
 const getPosts = async () => {
   const response = await axios.get(`/api/posts`);
   return response.data.posts.reverse();
+};
+
+// Comment Requests
+
+const createComment = async (body, id) => {
+  const config = {
+    headers: {
+      authorization: getAuth(),
+    },
+  };
+  try {
+    const response = await axios.post(
+      `/api/comments/add/${id}`,
+      { commentData: body },
+      config
+    );
+    successPopup('Comment Created!', getTheme());
+    return response.data.comments.reverse();
+  } catch (err) {
+    errorPopup('No such user exists!', getTheme());
+  }
+};
+
+const editComment = async (body, postId, commentId) => {
+  const config = {
+    headers: {
+      authorization: getAuth(),
+    },
+  };
+  try {
+    const response = await axios.post(
+      `/api/comments/edit/${postId}/${commentId}`,
+      { commentData: body },
+      config
+    );
+    successPopup('Comment Edited!', getTheme());
+    return response.data.comments.reverse();
+  } catch (err) {
+    err.response.status === 400
+      ? errorPopup("You don't own this comment!", getTheme())
+      : errorPopup('No such user exists!', getTheme());
+  }
+};
+
+const deleteComment = async (postId, commentId) => {
+  const config = {
+    headers: {
+      authorization: getAuth(),
+    },
+  };
+  try {
+    const response = await axios.delete(
+      `/api/comments/delete/${postId}/${commentId}`,
+      config
+    );
+    successPopup('Comment Deleted!', getTheme());
+    return response.data.comments.reverse();
+  } catch (err) {
+    errorPopup('No such user exists!', getTheme());
+  }
+};
+
+const getComment = async (postId, commentId) => {
+  const config = {
+    headers: {
+      authorization: getAuth(),
+    },
+  };
+  try {
+    const response = await axios.get(
+      `/api/comments/${postId}/${commentId}`,
+      config
+    );
+    return response.data.comment;
+  } catch (err) {
+    errorPopup('No such user exists!', getTheme());
+  }
+};
+
+const getComments = async (id) => {
+  const response = await axios.get(`/api/comments/${id}`);
+  return response.data.comments.reverse();
 };
 
 // User Requests
@@ -297,4 +379,9 @@ export {
   unfollowUser,
   getUser,
   getUsers,
+  createComment,
+  editComment,
+  deleteComment,
+  getComment,
+  getComments,
 };

@@ -16,6 +16,30 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
+    comments: [
+      {
+        _id: uuid(),
+        username: '@shubhamsoni',
+        text: 'Interesting',
+        userAvatar:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt-F5GQg8qB2fWquF1ltQvAT2Z8Dv5pJLb9w&usqp=CAU',
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+      {
+        _id: uuid(),
+        username: '@guest',
+        text: 'Wow!',
+        userAvatar:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt-F5GQg8qB2fWquF1ltQvAT2Z8Dv5pJLb9w&usqp=CAU',
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+    ],
     username: '@adarshbalika',
     byUser: '1',
     userAvatar:
@@ -32,6 +56,30 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
+    comments: [
+      {
+        _id: uuid(),
+        username: '@adarshbalika',
+        text: 'Interesting',
+        userAvatar:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt-F5GQg8qB2fWquF1ltQvAT2Z8Dv5pJLb9w&usqp=CAU',
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+      {
+        _id: uuid(),
+        username: '@guest',
+        text: 'Wow!',
+        userAvatar:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt-F5GQg8qB2fWquF1ltQvAT2Z8Dv5pJLb9w&usqp=CAU',
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+    ],
     username: '@shubhamsoni',
     byUser: '2',
     userAvatar:

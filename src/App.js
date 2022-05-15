@@ -11,7 +11,8 @@ import Sidebar from './Components/Sidebar/Sidebar';
 import Search from './Components/Search/Search';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllUsers } from './Reducers/userReducer';
+import { getAllStarred, getAllUsers } from './Reducers/userReducer';
+import { getAllPosts } from './Reducers/postReducer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Starred from './Components/Starred/Starred';
@@ -19,6 +20,11 @@ import Starred from './Components/Starred/Starred';
 function App() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(getAllPosts());
+    dispatch(getAllStarred());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getAllUsers());

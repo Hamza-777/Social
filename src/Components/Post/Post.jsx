@@ -5,11 +5,13 @@ import { FiHeart } from 'react-icons/fi';
 import { BiComment } from 'react-icons/bi';
 import { FaTrashAlt, FaHeart } from 'react-icons/fa';
 import { BsStar, BsStarFill } from 'react-icons/bs';
+import { GrEdit } from 'react-icons/gr';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   likeAPost,
   dislikeAPost,
   deleteAPost,
+  getAPost,
 } from '../../Reducers/postReducer';
 import { starAPost, unstarAPost } from '../../Reducers/userReducer';
 
@@ -20,7 +22,7 @@ const Post = ({
     username,
     createdAt,
     image,
-    likes: { likeCount, likedBy },
+    likes: { likedBy },
     content,
     byUser,
   },
@@ -75,12 +77,13 @@ const Post = ({
           <div className='like-dislike-comment'>
             <div className='likes flex-center'>
               {likedBy &&
+              likedBy.length > 0 &&
               likedBy.some((item) => item._id === currentUser._id) ? (
                 <FaHeart className='icon' onClick={dislikePost} />
               ) : (
                 <FiHeart className='icon' onClick={likePost} />
               )}{' '}
-              <p className='h5'>{likeCount}</p>
+              <p className='h5'>{likedBy?.length}</p>
             </div>
             <div className='comment-count flex-center'>
               <Link to={`/post/${_id}`}>
@@ -100,6 +103,10 @@ const Post = ({
           {currentUser.username === username && (
             <div className='edit-delete flex-center'>
               <FaTrashAlt className='icon delete' onClick={deletePost} />
+              <GrEdit
+                className='icon'
+                onClick={(e) => dispatch(getAPost(_id))}
+              />
             </div>
           )}
         </div>
