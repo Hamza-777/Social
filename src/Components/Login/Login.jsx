@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, reset } from '../../Reducers/authReducer';
+import { login } from '../../Reducers/authReducer';
 import './Login.css';
 
 const Login = () => {

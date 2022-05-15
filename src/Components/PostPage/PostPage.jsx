@@ -21,9 +21,12 @@ const PostPage = () => {
   const [text, setText] = useState('');
 
   useEffect(() => {
-    dispatch(getAPost(postId));
     dispatch(getAllComments(postId));
   }, [dispatch, postId]);
+
+  useEffect(() => {
+    dispatch(getAPost(postId));
+  }, [dispatch, postId, comments]);
 
   useEffect(() => {
     setText(comment ? comment.text : '');
@@ -60,7 +63,7 @@ const PostPage = () => {
   return (
     <section
       className='container'
-      style={{ border: '2px solid', borderRadius: '7px' }}
+      style={{ border: '2px solid var(--grey-9-color)', borderRadius: '7px' }}
     >
       {post && <Post post={post} />}
       <div className='create-post'>

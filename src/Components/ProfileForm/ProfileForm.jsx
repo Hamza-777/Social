@@ -143,6 +143,7 @@ const ProfileForm = () => {
               <textarea
                 placeholder='A short bio of yourself'
                 name='about'
+                rows={7}
                 value={about}
                 onChange={getFormData}
               ></textarea>

@@ -1,6 +1,6 @@
 .myprofile {
   width: 100%;
-  border: 2px solid #000;
+  border: 2px solid var(--grey-9-color);
   border-radius: 7px;
   position: relative;
   padding: 2rem;

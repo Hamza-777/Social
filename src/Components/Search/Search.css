@@ -2,7 +2,7 @@
   width: 100%;
   padding: 0.5rem 1rem;
   font-size: 1.75rem;
-  border: 2px solid;
+  border: 2px solid var(--grey-9-color);
   outline: none;
   border-radius: 8px;
   background-color: inherit;

@@ -132,7 +132,7 @@ textarea {
 }
 
 .btn-outline {
-  border: 1px solid var(--dark-color);
+  border: 2px solid var(--dark-color);
   padding: 0.5rem 1.5rem;
   border-radius: 4px;
   transition: var(--default-transition);
@@ -209,7 +209,7 @@ textarea {
   width: 100%;
   padding: 0.4rem;
   font-size: 1.2rem;
-  border: 2px solid #333;
+  border: 2px solid var(--grey-9-color);
   border-radius: 4px;
   background-color: inherit;
   outline: none;
@@ -256,7 +256,7 @@ textarea {
 .hr {
   width: 100%;
   border: none;
-  border-top: 2px solid var(--grey-7-color);
+  border-top: 2px solid var(--grey-9-color);
 }
 
 /* Flex */

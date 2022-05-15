@@ -24,6 +24,8 @@ const sendLoginReq = async (body) => {
     err.response.status === 401
       ? errorPopup('Authorization denied! Wrong credentials.', getTheme())
       : errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -40,6 +42,8 @@ const sendSignupReq = async (body) => {
     if (err.response.status === 422) {
       errorPopup('User already exists!', getTheme());
     }
+
+    return err;
   }
 };
 
@@ -62,6 +66,7 @@ const createPost = async (body) => {
     return response.data.posts.reverse();
   } catch (err) {
     errorPopup('No such user exists!', getTheme());
+    return err;
   }
 };
 
@@ -83,6 +88,8 @@ const editPost = async (body, id) => {
     err.response.status === 400
       ? errorPopup("You don't own this post!", getTheme())
       : errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -100,6 +107,8 @@ const likePost = async (id) => {
     err.response.status === 400
       ? errorPopup("You've already liked this post!", getTheme())
       : errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -117,6 +126,8 @@ const dislikePost = async (id) => {
     err.response.status === 400
       ? errorPopup('Post not liked yet!', getTheme())
       : errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -132,6 +143,8 @@ const deletePost = async (id) => {
     return response.data.posts.reverse();
   } catch (err) {
     errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -146,6 +159,8 @@ const getPost = async (id) => {
     return response.data.post;
   } catch (err) {
     errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -172,6 +187,8 @@ const createComment = async (body, id) => {
     return response.data.comments.reverse();
   } catch (err) {
     errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -193,6 +210,8 @@ const editComment = async (body, postId, commentId) => {
     err.response.status === 400
       ? errorPopup("You don't own this comment!", getTheme())
       : errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -211,6 +230,52 @@ const deleteComment = async (postId, commentId) => {
     return response.data.comments.reverse();
   } catch (err) {
     errorPopup('No such user exists!', getTheme());
+
+    return err;
+  }
+};
+
+const upvoteComment = async (postId, commentId) => {
+  const config = {
+    headers: {
+      authorization: getAuth(),
+    },
+  };
+  try {
+    const response = await axios.post(
+      `/api/comments/upvote/${postId}/${commentId}`,
+      {},
+      config
+    );
+    return response.data.comments.reverse();
+  } catch (err) {
+    err.response.status === 400
+      ? errorPopup('You already upvoted this comment!', getTheme())
+      : errorPopup('No such user exists!', getTheme());
+
+    return err;
+  }
+};
+
+const downvoteComment = async (postId, commentId) => {
+  const config = {
+    headers: {
+      authorization: getAuth(),
+    },
+  };
+  try {
+    const response = await axios.post(
+      `/api/comments/downvote/${postId}/${commentId}`,
+      {},
+      config
+    );
+    return response.data.comments.reverse();
+  } catch (err) {
+    err.response.status === 400
+      ? errorPopup('You already downvoted this comment!', getTheme())
+      : errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -228,6 +293,8 @@ const getComment = async (postId, commentId) => {
     return response.data.comment;
   } catch (err) {
     errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -254,6 +321,8 @@ const editUser = async (body) => {
     return response.data.user;
   } catch (err) {
     errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -271,6 +340,8 @@ const starPost = async (id) => {
     err.response.status === 400
       ? errorPopup("You've already starred this post!", getTheme())
       : errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -292,6 +363,8 @@ const unstarPost = async (id) => {
     err.response.status === 400
       ? errorPopup('Post not starred yet!', getTheme())
       : errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -306,6 +379,8 @@ const getStarred = async () => {
     return response.data.bookmarks;
   } catch (err) {
     errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -322,6 +397,8 @@ const followUser = async (id) => {
     err.response.status === 400
       ? errorPopup('You already follow this user!', getTheme())
       : errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -338,6 +415,8 @@ const unfollowUser = async (id) => {
     err.response.status === 400
       ? errorPopup("You don't follow this user!", getTheme())
       : errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -352,6 +431,8 @@ const getUser = async (id) => {
     return response.data.user;
   } catch (err) {
     errorPopup('No such user exists!', getTheme());
+
+    return err;
   }
 };
 
@@ -381,6 +462,8 @@ export {
   getUsers,
   createComment,
   editComment,
+  upvoteComment,
+  downvoteComment,
   deleteComment,
   getComment,
   getComments,

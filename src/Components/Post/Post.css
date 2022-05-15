@@ -8,7 +8,7 @@
   justify-content: flex-start;
   gap: 1rem;
   margin: 2rem 0;
-  border: 2px solid;
+  border: 2px solid var(--grey-9-color);
   border-radius: 7px;
   padding: 1rem;
 }
@@ -100,7 +100,7 @@
   color: var(--red-color);
 }
 
-.comment-count .icon {
+.comment-count > .icon {
   color: var(--blue-color);
 }
 

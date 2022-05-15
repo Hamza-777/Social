@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {
   createComment,
   editComment,
+  upvoteComment,
+  downvoteComment,
   deleteComment,
   getComment,
   getComments,
@@ -60,6 +62,34 @@ export const editAComment = createAsyncThunk(
     const { comment, postId, commentId } = data;
     try {
       return await editComment(comment, postId, commentId);
+    } catch (err) {
+      const message =
+        err?.response?.data?.message || err.message || err.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const upvoteAComment = createAsyncThunk(
+  'comment/upvote',
+  async (data, thunkAPI) => {
+    const { postId, commentId } = data;
+    try {
+      return await upvoteComment(postId, commentId);
+    } catch (err) {
+      const message =
+        err?.response?.data?.message || err.message || err.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const downvoteAComment = createAsyncThunk(
+  'comment/downvote',
+  async (data, thunkAPI) => {
+    const { postId, commentId } = data;
+    try {
+      return await downvoteComment(postId, commentId);
     } catch (err) {
       const message =
         err?.response?.data?.message || err.message || err.toString();
@@ -131,6 +161,26 @@ export const commentSlice = createSlice({
         state.comment = null;
       })
       .addCase(editAComment.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(upvoteAComment.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(upvoteAComment.fulfilled, (state, action) => {
+        state.loading = false;
+        state.comments = action.payload;
+      })
+      .addCase(upvoteAComment.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(downvoteAComment.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(downvoteAComment.fulfilled, (state, action) => {
+        state.loading = false;
+        state.comments = action.payload;
+      })
+      .addCase(downvoteAComment.rejected, (state) => {
         state.loading = false;
       })
       .addCase(deleteAComment.pending, (state) => {

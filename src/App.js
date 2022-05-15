@@ -22,11 +22,6 @@ function App() {
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getAllPosts());
-    dispatch(getAllStarred());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch, user]);
 

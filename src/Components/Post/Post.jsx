@@ -23,6 +23,7 @@ const Post = ({
     createdAt,
     image,
     likes: { likedBy },
+    comments,
     content,
     byUser,
   },
@@ -89,7 +90,7 @@ const Post = ({
               <Link to={`/post/${_id}`}>
                 <BiComment className='icon' />
               </Link>{' '}
-              <p className='h5'>0</p>
+              <p className='h5'>{comments && comments.length}</p>
             </div>
             <div className='star'>
               {starred && starred.some((item) => item._id === _id) ? (
