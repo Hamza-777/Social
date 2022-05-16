@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Post from '../Post/Post';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllStarred } from '../../Reducers/userReducer';
 
 const Starred = () => {
+  const dispatch = useDispatch();
   const { starred } = useSelector((state) => state.user);
+  const { posts } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    dispatch(getAllStarred());
+  }, [dispatch, posts]);
 
   return (
     <section className='container'>
@@ -11,7 +18,7 @@ const Starred = () => {
         {starred && starred.length > 0 ? (
           starred.map((post) => <Post key={post._id} post={post} />)
         ) : (
-          <p className='large'>No posts to show</p>
+          <p className='large flex-center'>No posts to show</p>
         )}
       </div>
     </section>

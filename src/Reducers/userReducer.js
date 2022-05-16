@@ -138,18 +138,12 @@ export const userSlice = createSlice({
       .addCase(editAUser.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(starAPost.pending, (state) => {
-        state.loading = true;
-      })
       .addCase(starAPost.fulfilled, (state, action) => {
         state.loading = false;
         state.starred = action.payload;
       })
       .addCase(starAPost.rejected, (state) => {
         state.loading = false;
-      })
-      .addCase(unstarAPost.pending, (state) => {
-        state.loading = true;
       })
       .addCase(unstarAPost.fulfilled, (state, action) => {
         state.loading = false;
@@ -168,9 +162,6 @@ export const userSlice = createSlice({
       .addCase(getAllStarred.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(followAUser.pending, (state) => {
-        state.loading = true;
-      })
       .addCase(followAUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload[1];
@@ -180,9 +171,6 @@ export const userSlice = createSlice({
       })
       .addCase(followAUser.rejected, (state) => {
         state.loading = false;
-      })
-      .addCase(unfollowAUser.pending, (state) => {
-        state.loading = true;
       })
       .addCase(unfollowAUser.fulfilled, (state, action) => {
         state.loading = false;

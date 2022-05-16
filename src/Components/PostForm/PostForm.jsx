@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GrGallery } from 'react-icons/gr';
 import { useSelector, useDispatch } from 'react-redux';
-import { createAPost } from '../../Reducers/postReducer';
+import { createAPost, editAPost } from '../../Reducers/postReducer';
 import './PostForm.css';
 
 const PostForm = () => {
@@ -10,17 +10,33 @@ const PostForm = () => {
 
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.auth);
+  const { post } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    setContent(post ? post.content : '');
+    setImage(post ? post.image : '');
+  }, [post]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      createAPost({
-        content,
-        image,
-        userAvatar: currentUser.avatar,
-        byUser: currentUser._id,
-      })
-    );
+    post
+      ? dispatch(
+          editAPost({
+            post: {
+              content,
+              image,
+            },
+            id: post._id,
+          })
+        )
+      : dispatch(
+          createAPost({
+            content,
+            image,
+            userAvatar: currentUser.avatar,
+            byUser: currentUser._id,
+          })
+        );
     setImage('');
     setContent('');
   };
@@ -68,7 +84,9 @@ const PostForm = () => {
                 onChange={handleImage}
               />
             </div>
-            <button className='btn btn-outline'>Post</button>
+            <button className='btn btn-outline'>
+              {post ? 'Edit' : 'Post'}
+            </button>
           </div>
         </form>
       </div>

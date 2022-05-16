@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiLink } from 'react-icons/fi';
 import { AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout, reset } from '../../Reducers/authReducer';
+import { logout } from '../../Reducers/authReducer';
 import './Navbar.css';
 import { successPopup } from '../../Misc/toasts';
+import { getAllPosts } from '../../Reducers/postReducer';
+import { getAllStarred } from '../../Reducers/userReducer';
 
 const Navbar = () => {
+  const location = useLocation().pathname;
   const dispatch = useDispatch();
   const { userLoggedIn } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (
+      !location.includes('/post/') &&
+      !location.includes('/login') &&
+      !location.includes('/signup')
+    ) {
+      dispatch(getAllPosts());
+      dispatch(getAllStarred());
+    }
+  }, [dispatch, location]);
 
   const logoutUser = (e) => {
     dispatch(logout());
