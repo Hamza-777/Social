@@ -22,7 +22,7 @@ const Post = ({
     username,
     createdAt,
     image,
-    likes: { likedBy },
+    likes: { likeCount, likedBy, dislikedBy },
     comments,
     content,
     byUser,
@@ -78,14 +78,13 @@ const Post = ({
         <div className='posts-item-actions'>
           <div className='like-dislike-comment'>
             <div className='likes flex-center'>
-              {likedBy &&
-              likedBy.length > 0 &&
+              {likedBy.length !== 0 &&
               likedBy.some((item) => item._id === currentUser._id) ? (
                 <FaHeart className='icon' onClick={dislikePost} />
               ) : (
                 <FiHeart className='icon' onClick={likePost} />
               )}{' '}
-              <p className='h5'>{likedBy?.length}</p>
+              <p className='h5'>{likeCount}</p>
             </div>
             <div className='comment-count flex-center'>
               <Link to={`/post/${_id}`}>
