@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Post.css';
 import { FiHeart } from 'react-icons/fi';
 import { BiComment } from 'react-icons/bi';

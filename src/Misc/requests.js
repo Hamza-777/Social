@@ -100,7 +100,7 @@ const likePost = async (id) => {
     },
   };
   try {
-    const response = await axios.post(`api/posts/like/${id}`, {}, config);
+    const response = await axios.post(`/api/posts/like/${id}`, {}, config);
     successPopup('Post Liked!', getTheme());
     return response.data.posts.reverse();
   } catch (err) {
@@ -119,7 +119,7 @@ const dislikePost = async (id) => {
     },
   };
   try {
-    const response = await axios.post(`api/posts/dislike/${id}`, {}, config);
+    const response = await axios.post(`/api/posts/dislike/${id}`, {}, config);
     successPopup('Post Disliked!', getTheme());
     return response.data.posts.reverse();
   } catch (err) {

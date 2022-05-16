@@ -3,7 +3,6 @@ import './PostPage.css';
 import Post from '../Post/Post';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAPost } from '../../Reducers/postReducer';
 import Spinner from '../Spinner/Spinner';
 import {
   createAComment,
@@ -16,17 +15,13 @@ const PostPage = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.auth);
-  const { post, loading } = useSelector((state) => state.post);
+  const { posts, loading } = useSelector((state) => state.post);
   const { comment, comments } = useSelector((state) => state.comment);
   const [text, setText] = useState('');
 
   useEffect(() => {
     dispatch(getAllComments(postId));
   }, [dispatch, postId]);
-
-  useEffect(() => {
-    dispatch(getAPost(postId));
-  }, [dispatch, postId, comments]);
 
   useEffect(() => {
     setText(comment ? comment.text : '');
@@ -65,7 +60,9 @@ const PostPage = () => {
       className='container'
       style={{ border: '2px solid var(--grey-9-color)', borderRadius: '7px' }}
     >
-      {post && <Post post={post} />}
+      {posts && posts.length > 0 && (
+        <Post post={posts.filter((item) => item._id === postId)[0]} />
+      )}
       <div className='create-post'>
         <div className='post-form'>
           <form className='form my-1' onSubmit={addComment}>

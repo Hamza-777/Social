@@ -15,7 +15,11 @@ const Navbar = () => {
   const { userLoggedIn } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!location.includes('/post/')) {
+    if (
+      !location.includes('/post/') &&
+      !location.includes('/login') &&
+      !location.includes('/signup')
+    ) {
       dispatch(getAllPosts());
       dispatch(getAllStarred());
     }
