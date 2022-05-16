@@ -19,7 +19,7 @@ const Dashboard = () => {
         {posts && posts.length > 0 ? (
           posts.map((post) => <Post key={post._id} post={post} />)
         ) : (
-          <p className='large'>No posts to show</p>
+          <p className='large flex-center'>No posts to show</p>
         )}
       </div>
     </section>

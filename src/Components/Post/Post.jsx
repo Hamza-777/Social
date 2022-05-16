@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import './Post.css';
 import { FiHeart } from 'react-icons/fi';
 import { BiComment } from 'react-icons/bi';
@@ -31,6 +31,7 @@ const Post = ({
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.auth);
   const { starred } = useSelector((state) => state.user);
+  const location = useLocation().pathname;
 
   const starPost = (e) => {
     dispatch(starAPost(_id));
@@ -101,7 +102,7 @@ const Post = ({
             </div>
           </div>
 
-          {currentUser.username === username && (
+          {currentUser.username === username && !location.includes('/post/') && (
             <div className='edit-delete flex-center'>
               <FaTrashAlt className='icon delete' onClick={deletePost} />
               <GrEdit

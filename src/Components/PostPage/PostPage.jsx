@@ -92,7 +92,7 @@ const PostPage = () => {
             <Comment key={comment._id} comment={comment} postId={postId} />
           ))
         ) : (
-          <p className='h2'>No comments on this post</p>
+          <p className='h2 flex-center'>No comments on this post</p>
         )}
       </div>
     </section>
