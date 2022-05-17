@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './PostPage.css';
 import Post from '../Post/Post';
+import { FiFilter } from 'react-icons/fi';
+import { IoIosArrowForward } from 'react-icons/io';
+import { GiSandsOfTime } from 'react-icons/gi';
+import { BiUpArrow, BiDownArrow } from 'react-icons/bi';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Spinner from '../Spinner/Spinner';
@@ -18,6 +22,9 @@ const PostPage = () => {
   const { posts, loading } = useSelector((state) => state.post);
   const { comment, comments } = useSelector((state) => state.comment);
   const [text, setText] = useState('');
+  const [sortBy, setSortBy] = useState('latest');
+  const [sortedComments, setSortedComments] = useState(null);
+  const [voted, setVoted] = useState(null);
 
   useEffect(() => {
     dispatch(getAllComments(postId));
@@ -26,6 +33,27 @@ const PostPage = () => {
   useEffect(() => {
     setText(comment ? comment.text : '');
   }, [comment]);
+
+  useEffect(() => {
+    setSortedComments([...comments]);
+  }, [comments]);
+
+  useEffect(() => {
+    sortedComments &&
+      (sortBy === 'upvotes'
+        ? setVoted(
+            sortedComments.sort(
+              (a, b) => +b.votes.upvotedBy.length - +a.votes.upvotedBy.length
+            )
+          )
+        : sortBy === 'downvotes' &&
+          setVoted(
+            sortedComments.sort(
+              (a, b) =>
+                +b.votes.downvotedBy.length - +a.votes.downvotedBy.length
+            )
+          ));
+  }, [sortBy, sortedComments]);
 
   const addComment = (e) => {
     e.preventDefault();
@@ -83,11 +111,52 @@ const PostPage = () => {
           </form>
         </div>
       </div>
+      <aside className='filter-options flex-center justify-start'>
+        <FiFilter className='icon' />
+        <IoIosArrowForward id='arrow' className='icon' />
+        <article className='choose flex-center'>
+          <p
+            className={`current-filter h5 flex-center ${
+              sortBy === 'latest' && 'brown'
+            }`}
+            onClick={(e) => setSortBy('latest')}
+          >
+            {' '}
+            <GiSandsOfTime className='icon' /> Sort By Latest
+          </p>
+          <p
+            className={`current-filter h5 flex-center ${
+              sortBy === 'upvotes' && 'red'
+            }`}
+            onClick={(e) => setSortBy('upvotes')}
+          >
+            {' '}
+            <BiUpArrow className='icon' /> Sort By Most Upvotes
+          </p>
+          <p
+            className={`current-filter h5 flex-center ${
+              sortBy === 'downvotes' && 'blue'
+            }`}
+            onClick={(e) => setSortBy('downvotes')}
+          >
+            {' '}
+            <BiDownArrow className='icon' /> Sort By Most Downvotes
+          </p>
+        </article>
+      </aside>
       <div className='comments'>
         {comments && comments.length > 0 ? (
-          comments.map((comment) => (
-            <Comment key={comment._id} comment={comment} postId={postId} />
-          ))
+          sortBy === 'latest' ? (
+            comments.map((comment) => (
+              <Comment key={comment._id} comment={comment} postId={postId} />
+            ))
+          ) : (
+            sortedComments &&
+            voted &&
+            sortedComments.map((comment) => (
+              <Comment key={comment._id} comment={comment} postId={postId} />
+            ))
+          )
         ) : (
           <p className='h2 flex-center'>No comments on this post</p>
         )}

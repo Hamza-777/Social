@@ -11,11 +11,11 @@ import Sidebar from './Components/Sidebar/Sidebar';
 import Search from './Components/Search/Search';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllStarred, getAllUsers } from './Reducers/userReducer';
-import { getAllPosts } from './Reducers/postReducer';
+import { getAllUsers } from './Reducers/userReducer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Starred from './Components/Starred/Starred';
+import Explore from './Components/Explore/Explore';
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +34,14 @@ function App() {
           element={
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/explore'
+          element={
+            <PrivateRoute>
+              <Explore />
             </PrivateRoute>
           }
         />

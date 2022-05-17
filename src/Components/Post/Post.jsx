@@ -22,7 +22,7 @@ const Post = ({
     username,
     createdAt,
     image,
-    likes: { likeCount, likedBy, dislikedBy },
+    likes: { likeCount, likedBy },
     comments,
     content,
     byUser,
