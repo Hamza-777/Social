@@ -23,8 +23,7 @@ const PostPage = () => {
   const { comment, comments } = useSelector((state) => state.comment);
   const [text, setText] = useState('');
   const [sortBy, setSortBy] = useState('latest');
-  const [sortedComments, setSortedComments] = useState(null);
-  const [voted, setVoted] = useState(null);
+  const [sortedComments, setSortedComments] = useState([...comments]);
 
   useEffect(() => {
     dispatch(getAllComments(postId));
@@ -37,23 +36,6 @@ const PostPage = () => {
   useEffect(() => {
     setSortedComments([...comments]);
   }, [comments]);
-
-  useEffect(() => {
-    sortedComments &&
-      (sortBy === 'upvotes'
-        ? setVoted(
-            sortedComments.sort(
-              (a, b) => +b.votes.upvotedBy.length - +a.votes.upvotedBy.length
-            )
-          )
-        : sortBy === 'downvotes' &&
-          setVoted(
-            sortedComments.sort(
-              (a, b) =>
-                +b.votes.downvotedBy.length - +a.votes.downvotedBy.length
-            )
-          ));
-  }, [sortBy, sortedComments]);
 
   const addComment = (e) => {
     e.preventDefault();
@@ -77,7 +59,18 @@ const PostPage = () => {
             id: postId,
           })
         );
+    setText('');
   };
+
+  if (sortBy === 'upvotes') {
+    sortedComments.sort(
+      (a, b) => +b.votes.upvotedBy.length - +a.votes.upvotedBy.length
+    );
+  } else {
+    sortedComments.sort(
+      (a, b) => +b.votes.downvotedBy.length - +a.votes.downvotedBy.length
+    );
+  }
 
   if (loading) {
     return <Spinner />;
@@ -152,7 +145,7 @@ const PostPage = () => {
             ))
           ) : (
             sortedComments &&
-            voted &&
+            sortedComments.length > 0 &&
             sortedComments.map((comment) => (
               <Comment key={comment._id} comment={comment} postId={postId} />
             ))

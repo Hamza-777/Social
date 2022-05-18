@@ -7,7 +7,6 @@ import { logout } from '../../Reducers/authReducer';
 import './Navbar.css';
 import { successPopup } from '../../Misc/toasts';
 import { getAllPosts } from '../../Reducers/postReducer';
-import { getAllStarred } from '../../Reducers/userReducer';
 
 const Navbar = () => {
   const location = useLocation().pathname;
@@ -21,7 +20,6 @@ const Navbar = () => {
       !location.includes('/signup')
     ) {
       dispatch(getAllPosts());
-      dispatch(getAllStarred());
     }
   }, [dispatch, location]);
 

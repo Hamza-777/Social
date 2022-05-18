@@ -12,24 +12,17 @@ import './Explore.css';
 const Explore = () => {
   const { posts, loading } = useSelector((state) => state.post);
   const [sortBy, setSortBy] = useState('latest');
-  const [sortedPosts, setSortedPosts] = useState(null);
-  const [likedPosts, setLikedPosts] = useState(null);
+  const [sortedPosts, setSortedPosts] = useState([...posts]);
 
   useEffect(() => {
     setSortedPosts([...posts]);
   }, [posts]);
 
-  useEffect(() => {
-    sortedPosts &&
-      (sortBy === 'liked'
-        ? setLikedPosts(
-            sortedPosts.sort((a, b) => +b.likes.likeCount - +a.likes.likeCount)
-          )
-        : sortBy === 'comment' &&
-          setLikedPosts(
-            sortedPosts.sort((a, b) => +b.comments.length - +a.comments.length)
-          ));
-  }, [sortBy, sortedPosts]);
+  if (sortBy === 'liked') {
+    sortedPosts.sort((a, b) => +b.likes.likeCount - +a.likes.likeCount);
+  } else {
+    sortedPosts.sort((a, b) => +b.comments.length - +a.comments.length);
+  }
 
   if (loading) {
     return <Spinner />;
@@ -76,7 +69,7 @@ const Explore = () => {
             posts.map((post) => <Post key={post._id} post={post} />)
           ) : (
             sortedPosts &&
-            likedPosts &&
+            sortedPosts.length > 0 &&
             sortedPosts.map((post) => <Post key={post._id} post={post} />)
           )
         ) : (
