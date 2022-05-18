@@ -1,7 +1,7 @@
 import React from 'react';
 import './Sidebar.css';
 import { MdOutlineSpaceDashboard } from 'react-icons/md';
-import { FaRegUserCircle } from 'react-icons/fa';
+import { FaRegUserCircle, FaWpexplorer } from 'react-icons/fa';
 import { BsSearch, BsChatLeftText, BsStar } from 'react-icons/bs';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -16,6 +16,9 @@ const Sidebar = () => {
       <div className='sidebar flex-center flex-col'>
         <Link to='/'>
           <MdOutlineSpaceDashboard className='icon' />
+        </Link>
+        <Link to='/explore'>
+          <FaWpexplorer className='icon' />
         </Link>
         <Link to={`/profile/${currentUser?._id}`}>
           <FaRegUserCircle className='icon' />

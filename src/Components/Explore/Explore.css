@@ -1,0 +1,43 @@
+.filter-options {
+  padding: 1rem 2rem;
+  border: 2px solid var(--grey-9-color);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 7px;
+  gap: 1rem;
+}
+
+#arrow {
+  cursor: auto;
+}
+
+#arrow:hover {
+  transform: scale(1);
+}
+
+.choose {
+  gap: 2rem;
+}
+
+.current-filter {
+  border-radius: 4px;
+  border: 2px solid var(--grey-9-color);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  gap: 0.5rem;
+  transition: var(--default-transition);
+}
+
+.brown {
+  color: #8e3200;
+  border-color: #8e3200;
+}
+
+.blue {
+  color: var(--blue-color);
+  border-color: var(--blue-color);
+}
+
+.red {
+  color: var(--red-color);
+  border-color: var(--red-color);
+}
