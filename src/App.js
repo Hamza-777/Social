@@ -87,6 +87,18 @@ function App() {
         />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route
+          path='*'
+          element={
+            <section className='container flex-center'>
+              <img
+                src='https://cdn.dribbble.com/users/21546/screenshots/4815369/yelp_emptystates_business.gif'
+                alt='not found'
+                style={{ width: 'auto', height: 'auto' }}
+              />
+            </section>
+          }
+        />
       </Routes>
       <Sidebar />
       <ToastContainer />

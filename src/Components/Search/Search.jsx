@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Post from '../Post/Post';
 import User from '../User/User';
 import './Search.css';
@@ -44,7 +44,14 @@ const Search = () => {
               .map((post) => <Post key={post._id} post={post} />)
           )
         ) : (
-          <p className='large flex-center'>Search for a user or a post</p>
+          <div className='flex-center flex-col' style={{ gap: '1rem' }}>
+            <p className='large flex-center'>Search for a user or a post</p>
+            <img
+              src='https://cdn.dribbble.com/users/21546/screenshots/4815369/yelp_emptystates_business.gif'
+              alt='not found'
+              style={{ width: 'auto', height: 'auto' }}
+            />
+          </div>
         )}
       </div>
     </section>

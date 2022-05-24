@@ -18,7 +18,13 @@ const Starred = () => {
         {starred && starred.length > 0 ? (
           starred.map((post) => <Post key={post._id} post={post} />)
         ) : (
-          <p className='large flex-center'>No posts to show</p>
+          <div className='flex-center'>
+            <img
+              src='https://cdn.dribbble.com/users/21546/screenshots/4815369/yelp_emptystates_business.gif'
+              alt='not found'
+              style={{ width: 'auto', height: 'auto' }}
+            />
+          </div>
         )}
       </div>
     </section>
