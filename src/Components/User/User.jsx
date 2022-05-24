@@ -37,7 +37,6 @@ const User = ({ user: { _id, avatar, username, followers } }) => {
             Follow
           </button>
         )}
-        <button className='btn btn-outline'>Chat</button>
       </div>
     </div>
   );

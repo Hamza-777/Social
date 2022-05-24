@@ -2,7 +2,7 @@ import React from 'react';
 import './Sidebar.css';
 import { MdOutlineSpaceDashboard } from 'react-icons/md';
 import { FaRegUserCircle, FaWpexplorer } from 'react-icons/fa';
-import { BsSearch, BsChatLeftText, BsStar } from 'react-icons/bs';
+import { BsSearch, BsStar } from 'react-icons/bs';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -28,9 +28,6 @@ const Sidebar = () => {
         </Link>
         <Link to='/search'>
           <BsSearch className='icon' />
-        </Link>
-        <Link to='/chat'>
-          <BsChatLeftText className='icon' />
         </Link>
       </div>
     )

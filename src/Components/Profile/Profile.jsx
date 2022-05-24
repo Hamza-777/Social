@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import {
-  FaTrashAlt,
   FaRegEnvelope,
   FaTwitter,
   FaFacebook,
@@ -46,7 +45,6 @@ const Profile = () => {
     <section className='container'>
       {user && (
         <div className='myprofile'>
-          {/* <FaTrashAlt className='icon delete-profile' /> */}
           {currentUser._id === userId && (
             <Link to={`/edit-profile/${userId}`}>
               <GrEdit className='icon edit-profile' />
@@ -65,7 +63,7 @@ const Profile = () => {
             <p className='large'>{`${
               user.name.charAt(0).toUpperCase() + user.name.slice(1)
             } <${user.username}>`}</p>
-            <p className='lead'>{user.desc ? user.desc : ''}</p>
+            <p className='lead profile-desc'>{user.desc ? user.desc : ''}</p>
           </div>
           <div className='myprofile-socials'>
             <a href='https://mail.google.com/mail/u/0/#inbox?compose=new'>

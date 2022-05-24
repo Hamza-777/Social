@@ -115,7 +115,7 @@ const PostPage = () => {
             onClick={(e) => setSortBy('latest')}
           >
             {' '}
-            <GiSandsOfTime className='icon' /> Sort By Latest
+            <GiSandsOfTime className='icon' /> Latest
           </p>
           <p
             className={`current-filter h5 flex-center ${
@@ -124,7 +124,7 @@ const PostPage = () => {
             onClick={(e) => setSortBy('upvotes')}
           >
             {' '}
-            <BiUpArrow className='icon' /> Sort By Most Upvotes
+            <BiUpArrow className='icon' /> Most Upvotes
           </p>
           <p
             className={`current-filter h5 flex-center ${
@@ -133,7 +133,7 @@ const PostPage = () => {
             onClick={(e) => setSortBy('downvotes')}
           >
             {' '}
-            <BiDownArrow className='icon' /> Sort By Most Downvotes
+            <BiDownArrow className='icon' /> Most Downvotes
           </p>
         </article>
       </aside>
