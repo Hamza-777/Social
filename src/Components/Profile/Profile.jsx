@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import {
-  FaTrashAlt,
   FaRegEnvelope,
   FaTwitter,
   FaFacebook,
@@ -46,7 +45,6 @@ const Profile = () => {
     <section className='container'>
       {user && (
         <div className='myprofile'>
-          {/* <FaTrashAlt className='icon delete-profile' /> */}
           {currentUser._id === userId && (
             <Link to={`/edit-profile/${userId}`}>
               <GrEdit className='icon edit-profile' />
