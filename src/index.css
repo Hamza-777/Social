@@ -405,10 +405,18 @@ textarea {
   html {
     font-size: 80%;
   }
+
+  .container {
+    margin-top: 12rem;
+  }
 }
 
 @media screen and (max-width: 600px) {
   html {
     font-size: 62.5%;
+  }
+
+  .container {
+    margin-top: 12rem;
   }
 }

@@ -41,7 +41,7 @@ const Explore = () => {
             onClick={(e) => setSortBy('latest')}
           >
             {' '}
-            <GiSandsOfTime className='icon' /> Sort By Latest
+            <GiSandsOfTime className='icon' /> Latest
           </p>
           <p
             className={`current-filter h5 flex-center ${
@@ -50,7 +50,7 @@ const Explore = () => {
             onClick={(e) => setSortBy('liked')}
           >
             {' '}
-            <FaHeart className='icon' /> Sort By Most Likes
+            <FaHeart className='icon' /> Most Likes
           </p>
           <p
             className={`current-filter h5 flex-center ${
@@ -59,7 +59,7 @@ const Explore = () => {
             onClick={(e) => setSortBy('comment')}
           >
             {' '}
-            <BiComment className='icon' /> Sort By Most Comments
+            <BiComment className='icon' /> Most Comments
           </p>
         </article>
       </aside>

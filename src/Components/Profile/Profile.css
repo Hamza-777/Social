@@ -64,7 +64,8 @@
   padding: 1rem 0;
 }
 
-.myprofile-about .large {
+.myprofile-about .large,
+.profile-desc {
   text-align: center;
 }
 

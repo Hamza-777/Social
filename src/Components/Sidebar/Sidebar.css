@@ -8,3 +8,23 @@
   padding: 3rem 1rem;
   gap: 2.5rem;
 }
+
+@media screen and (max-width: 900px) {
+  .sidebar {
+    top: 6.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+    padding: 1rem 3rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar {
+    top: 6.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+    padding: 1rem 3rem;
+  }
+}

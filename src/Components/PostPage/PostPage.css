@@ -1,3 +1,31 @@
 .comments {
   padding: 1rem;
 }
+
+@media screen and (max-width: 900px) {
+  #arrow {
+    display: none;
+  }
+
+  .filter-options {
+    flex-direction: column;
+  }
+
+  .current-filter {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #arrow {
+    display: none;
+  }
+
+  .filter-options {
+    flex-direction: column;
+  }
+
+  .current-filter {
+    flex-direction: column;
+  }
+}
